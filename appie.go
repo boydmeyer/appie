@@ -11,6 +11,7 @@ type Appie struct {}
 type Product struct {
 	ID string
 	Name string
+	Description string
 	Price string
 	Image string
 }
@@ -28,6 +29,11 @@ func (a *Appie) GetProduct(id string) (*Product, error) {
 	// Name
 	c.OnHTML(".product-card-header_title__11vVs", func(e *colly.HTMLElement) {
 		p.Name = e.Text
+	})
+
+	// Description
+	c.OnHTML(".div[data-testhook='product-summary'] > p", func(e *colly.HTMLElement) {
+		p.Description = e.Text
 	})
 
 	// Price
