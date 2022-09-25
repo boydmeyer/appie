@@ -12,6 +12,7 @@ type Product struct {
 	ID string
 	Name string
 	Price string
+	Image string
 }
 
 func New() (*Appie, error) {
@@ -30,8 +31,13 @@ func (a *Appie) GetProduct(id string) (*Product, error) {
 	})
 
 	// Price
-	c.OnHTML("div.product-card-hero-price_now__PlF9u", func(e *colly.HTMLElement) {
+	c.OnHTML("div[data-testhook='price-amount']", func(e *colly.HTMLElement) {
 		p.Price = e.Text
+	})
+
+	// Image
+	c.OnHTML("img[data-testhook='product-image']", func(e *colly.HTMLElement) {
+		p.Image = e.Attr("src")
 	})
 
 	c.Visit(url)
