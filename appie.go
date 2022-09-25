@@ -32,7 +32,7 @@ func (a *Appie) GetProduct(id string) (*Product, error) {
 	})
 
 	// Description
-	c.OnHTML("div[data-testhook='product-summary'] p", func(e *colly.HTMLElement) {
+	c.OnHTML("div[data-testhook='product-summary']", func(e *colly.HTMLElement) {
 		p.Description = e.Text
 	})
 
